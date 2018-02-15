@@ -24,6 +24,9 @@ async function handleMessage(event) {
 
         bot.sendMessage(chat.id, `Hello there ${userName}, you just said "${userMessage}"`);
 
+        // TODO : Fetch from NLP an opinion
+        // TODO : Use NLP entity and parameters to parse a message and get proper message, else fallback
+
         log.info(`Message received from user ${user.id} with text : ${userMessage}`);
 
     }catch(error){
