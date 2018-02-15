@@ -4,10 +4,6 @@ const pino = require('pino')({
 });
 
 module.exports = exports = {
-    error (...args) {        
-        pino.error(...args)
-    },
-    log (...args) {
-        pino.log(...args)
-    }
+    error : (...args) => pino.error(...args),
+    info: (...args) => pino.info(...args)
 }
