@@ -4,6 +4,7 @@ const apiKey = config.telegram.apiKey;
 const bot = new TelegramBot(apiKey, {polling: true});
 const log = require('../log');
 const nlp = require('../nlp');
+const _ = require('lodash')
 
 module.exports = exports = {
 
@@ -22,10 +23,13 @@ async function handleMessage(event) {
         const {text: userMessage, from : user, chat} = event;
         const userName = user.first_name || 'unkown person';
 
-        bot.sendMessage(chat.id, `Hello there ${userName}, you just said "${userMessage}"`);
+        const nlpResponse = await nlp.parseMessage(user.id, userMessage)
 
-        // TODO : Fetch from NLP an opinion
-        // TODO : Use NLP entity and parameters to parse a message and get proper message, else fallback
+        console.log(nlpResponse)
+
+       if(_.get(nlpResponse, 'intent', 'default fallback intent').toLowerCase() === 'default fallback intent'){
+            bot.sendMessage(user.id,nlpResponse.suggestedResponse)
+       }
 
         log.info(`Message received from user ${user.id} with text : ${userMessage}`);
 
