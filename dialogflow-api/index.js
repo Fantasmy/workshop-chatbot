@@ -1,13 +1,14 @@
 const config = require('../config');
 const Api = require('apiai');
-const api = Api(config.dialogFlow.apiKey, {language: 'en'});
 
 module.exports = {
 
 	query({query, sessionId}) {
 
         if (!sessionId) throw new TypeError('No sessionId provided');
-    
+
+        const api = Api(config.dialogFlow.apiKey, {language: 'en'});
+
         return new Promise((resolve, reject) => {
             const request = api.textRequest(query, {
                 sessionId
