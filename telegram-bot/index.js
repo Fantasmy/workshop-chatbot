@@ -25,6 +25,7 @@ async function handleMessage(event) {
 
         const nlpResponse = await nlp.parseMessage(user.id, userMessage)
 
+        console.log("Response from NLP service :")
         console.log(nlpResponse)
 
        if(_.get(nlpResponse, 'intent', 'default fallback intent').toLowerCase() === 'default fallback intent'){

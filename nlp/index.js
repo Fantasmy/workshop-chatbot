@@ -10,8 +10,6 @@ module.exports = exports = {
             query: message
         });
 
-        console.log(result)
-
         return {
             intent : _.get(result, 'metadata.intentName', 'not-found') ,
             entities : _.get(result, 'parameters', {}),
