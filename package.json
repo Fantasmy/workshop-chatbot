@@ -9,18 +9,18 @@
     "watch": " ./node_modules/.bin/nodemon ./index.js --watch ./"
   },
   "engines": {
-    "node": ">=8.0.0 <9.0.0"
+    "node": ">=8.0.0"
   },
   "author": "Ian Segers <ask@segersian.com>",
   "license": "ISC",
   "dependencies": {
     "apiai": "^4.0.3",
-    "express": "^4.16.2",
-    "lodash": "^4.17.5",
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
     "node-telegram-bot-api": "^0.30.0",
-    "pino": "^4.10.4"
+    "pino": "^4.16.1"
   },
   "devDependencies": {
-    "nodemon": "^1.14.12"
+    "nodemon": "^1.17.4"
   }
 }
