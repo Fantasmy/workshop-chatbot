@@ -9,4 +9,4 @@ module.exports = exports = {
     dialogFlow : {
         apiKey : process.env.DIALOGFLOW_API_KEY
     }
-}
+};

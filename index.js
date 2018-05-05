@@ -1,3 +1,3 @@
 const telegramBot = require('./telegram-bot');
 
-telegramBot.start()
+telegramBot.start();
