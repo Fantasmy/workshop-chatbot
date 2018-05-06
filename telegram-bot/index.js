@@ -3,7 +3,6 @@ const config = require('../config');
 const apiKey = config.telegram.apiKey;
 const bot = new TelegramBot(apiKey, {polling: true});
 const log = require('../log');
-const nlp = require('../nlp');
 const _ = require('lodash');
 
 module.exports = exports = {
@@ -22,18 +21,17 @@ module.exports = exports = {
 async function handleMessage(event) {
 	try {
 		const {text: userMessage, from: user} = event;
-		const nlpResponse = await nlp.parseMessage(user.id, userMessage);
+		log.info(`Message received from user ${user.id} with text "${userMessage}"`);
 		
-		console.log("Response from NLP service :");
-		console.log(nlpResponse);
-		
-		if (_.get(nlpResponse, 'intent', 'default fallback intent').toLowerCase() === 'default fallback intent') {
-			await bot.sendMessage(user.id, nlpResponse.suggestedResponse);
-		}
-		
-		log.info(`Message received from user ${user.id} with text : ${userMessage}`);
+		const response = `Hey ${getFullName(user)}, you said "${userMessage}"`;
+		await bot.sendMessage(user.id, response);
+		log.info(`Response sent to user ${user.id} with text "${response}"`);
 		
 	} catch (error) {
 		log.error(error);
 	}
+}
+
+function getFullName(user) {
+	return `${_.get(user, 'first_name')} ${_.get(user, 'last_name')}`
 }
