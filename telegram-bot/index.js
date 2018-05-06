@@ -21,19 +21,24 @@ module.exports = exports = {
 
 async function handleMessage(event) {
 	try {
-		const {text: userMessage, from: user} = event;
-		const nlpResponse = await nlp.parseMessage(user.id, userMessage);
+		const {text: message, from: user} = event;
 		
-		console.log("Response from NLP service :");
-		console.log(nlpResponse);
+		log.info(`Message received from user ${user.id} with text "${message}"`);
 		
-		if (_.get(nlpResponse, 'intent', 'default fallback intent').toLowerCase() === 'default fallback intent') {
-			await bot.sendMessage(user.id, nlpResponse.suggestedResponse);
+		const {intent, confidenceScore, suggestedResponse} = await nlp.parseMessage(user.id, message);
+		log.info(`The NLP has extract the intent "${intent}" from text "${message}"`);
+		
+		if (intent === 'default') {
+			await bot.sendMessage(user.id, `You said "${message}", we couldn't conclude your intent, so we're gonna answer "${suggestedResponse}".`);
+		} else {
+			await bot.sendMessage(user.id, `You said "${message}", we concluded that your intent is "${intent}" with ${toPercentage(confidenceScore)} confidence.`);
 		}
-		
-		log.info(`Message received from user ${user.id} with text : ${userMessage}`);
 		
 	} catch (error) {
 		log.error(error);
 	}
+}
+
+function toPercentage(value) {
+	return `${(value * 100).toFixed(0)}%`
 }

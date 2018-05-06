@@ -11,11 +11,20 @@ module.exports = exports = {
 		});
 		
 		return {
-			intent: _.get(result, 'metadata.intentName', 'not-found'),
+			intent: mapIntentName(result),
 			entities: _.get(result, 'parameters', {}),
 			suggestedResponse: _.get(result, 'fulfillment.speech', null),
-			score: _.get(result, 'score', 0)
+			confidenceScore: _.get(result, 'score', 0)
 		}
 	}
 	
 };
+
+function mapIntentName(result) {
+	const intent = _.get(result, 'metadata.intentName', '');
+	if (!intent || intent.toLowerCase() === 'default fallback intent') {
+		return 'default'
+	} else {
+		return intent
+	}
+}
