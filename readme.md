@@ -22,9 +22,9 @@
  - Search for the `Client access token`
 
 ## Examples
- - Example 1 : Hello world `git checkout telegram_hello_world`
+ - Example 1 : Hello world `git checkout example_hello_world`
   - Run the app with `TELEGRAM_API_KEY=<your-telegram-key> NPM START`
- - Example 2 : Using NLP `git checkout telegram_nlp`
+ - Example 2 : Using NLP `git checkout example_the_intent`
    - Run the app with 
 
      ```TELEGRAM_API_KEY=<your-telegram-key> DIALOGFLOW_API_KEY=<your-dialogflow-key> NPM START```
